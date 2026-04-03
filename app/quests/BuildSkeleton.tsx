@@ -4,6 +4,7 @@ import { TrainingData, getConfidence, CATEGORIES } from "./data";
 import RexBuddy from "./RexBuddy";
 import { sfxCorrect, sfxTap, sfxCelebrate } from "./sfx";
 import { speak, stopSpeaking } from "./speak";
+import { useSpeakLock } from "./useSpeakLock";
 import { VOICE } from "./voice";
 import Confetti from "./Confetti";
 
@@ -20,6 +21,7 @@ export default function BuildSkeleton({ training, onComplete }: { training: Trai
   const [step, setStep] = useState(0);
   const [done, setDone] = useState(false);
   const [auto, setAuto] = useState(false);
+  const locked = useSpeakLock();
 
   useEffect(() => { speak(VOICE.q5Start); return () => { stopSpeaking(); }; }, []);
 
@@ -44,7 +46,7 @@ export default function BuildSkeleton({ training, onComplete }: { training: Trai
         <h2 className="text-3xl font-bold text-center">🎉 Skeleton Complete!</h2>
         <p className="text-xl">AI Confidence: <b>{avgConf}%</b></p>
         <p className="text-lg opacity-80 text-center max-w-md">Your training data helped Rex reconstruct a real dinosaur!</p>
-        <button className="btn btn-success mt-4" onClick={() => { stopSpeaking(); sfxTap(); speak(VOICE.q5Learned); onComplete(); }}>🏠 Mission Complete!</button>
+        <button className="btn btn-success mt-4" disabled={locked} onClick={() => { sfxTap(); speak(VOICE.q5Learned); onComplete(); }}>🏠 Mission Complete!</button>
       </div>
     );
   }
@@ -67,7 +69,7 @@ export default function BuildSkeleton({ training, onComplete }: { training: Trai
         {STEPS.slice(0, step + 1).map((s, i) => <div key={i}>✅ {s.label}</div>)}
       </div>
       {!auto ? (
-        <button className="btn btn-primary text-xl mt-4" onClick={() => { stopSpeaking(); sfxTap(); setAuto(true); speak(VOICE.q5Launch).then(() => speak(STEPS[0].voice)); }}>🦴 Start Building!</button>
+        <button className="btn btn-primary text-xl mt-4" disabled={locked} onClick={() => { sfxTap(); speak(VOICE.q5Launch).then(() => { speak(STEPS[0].voice); setAuto(true); }); }}>🦴 Start Building!</button>
       ) : (
         <div className="text-sm opacity-50 mt-4">🤖 Rex is assembling...</div>
       )}

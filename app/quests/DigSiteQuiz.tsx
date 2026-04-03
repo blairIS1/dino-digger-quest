@@ -4,6 +4,7 @@ import { TrainingData, generateTestRounds, CAT_LABELS } from "./data";
 import RexBuddy from "./RexBuddy";
 import { sfxCorrect, sfxWrong, sfxTap } from "./sfx";
 import { speak, stopSpeaking } from "./speak";
+import { useSpeakLock } from "./useSpeakLock";
 import { VOICE } from "./voice";
 import Confetti from "./Confetti";
 
@@ -15,6 +16,7 @@ export default function DigSiteQuiz({ training, onComplete }: { training: Traini
   const [mood, setMood] = useState<"thinking" | "happy" | "scared">("thinking");
   const [showConfetti, setShowConfetti] = useState(false);
   const [done, setDone] = useState(false);
+  const locked = useSpeakLock();
 
   useEffect(() => { speak(VOICE.q3Start); return () => { stopSpeaking(); }; }, []);
   const scene = rounds[idx];
@@ -38,10 +40,10 @@ export default function DigSiteQuiz({ training, onComplete }: { training: Traini
         <p className="text-lg opacity-80">{mistakes === 0 ? "Perfect!" : `${mistakes} mistake${mistakes > 1 ? "s" : ""}. ${needsRetrain ? "Need more training!" : "Not bad!"}`}</p>
         {needsRetrain ? (
           <div className="flex gap-3 mt-4">
-            <button className="btn" style={{ background: "var(--accent)", color: "#0f172a" }} onClick={() => { stopSpeaking(); sfxTap(); speak(VOICE.q3Retrain); onComplete(true); }}>🔄 Retrain</button>
-            <button className="btn" style={{ background: "var(--card)" }} onClick={() => { stopSpeaking(); sfxTap(); onComplete(false); }}>Continue →</button>
+            <button className="btn" style={{ background: "var(--accent)", color: "#0f172a" }} disabled={locked} onClick={() => { sfxTap(); speak(VOICE.q3Retrain); onComplete(true); }}>🔄 Retrain</button>
+            <button className="btn" style={{ background: "var(--card)" }} disabled={locked} onClick={() => { sfxTap(); onComplete(false); }}>Continue →</button>
           </div>
-        ) : <button className="btn btn-success mt-4" onClick={() => { stopSpeaking(); sfxTap(); speak(VOICE.q3Learned); onComplete(false); }}>Next Quest →</button>}
+        ) : <button className="btn btn-success mt-4" disabled={locked} onClick={() => { sfxTap(); speak(VOICE.q3Learned); onComplete(false); }}>Next Quest →</button>}
       </div>
     );
   }
@@ -71,7 +73,7 @@ export default function DigSiteQuiz({ training, onComplete }: { training: Traini
       ) : (
         <div className="flex flex-wrap gap-2 justify-center max-w-sm fade-in">
           {Object.entries(CAT_LABELS).map(([key, { emoji, label }]) => (
-            <button key={key} className="btn text-sm" onClick={() => { stopSpeaking(); sfxTap(); choose(key); }}>{emoji} {label}</button>
+            <button key={key} className="btn text-sm" disabled={locked} onClick={() => { sfxTap(); choose(key); }}>{emoji} {label}</button>
           ))}
         </div>
       )}

@@ -4,6 +4,7 @@ import { TRAIN_ITEMS, TrainingData, CAT_LABELS } from "./data";
 import RexBuddy from "./RexBuddy";
 import { sfxCorrect, sfxWrong, sfxTap } from "./sfx";
 import { speak, stopSpeaking } from "./speak";
+import { useSpeakLock } from "./useSpeakLock";
 import { VOICE } from "./voice";
 import Confetti from "./Confetti";
 
@@ -15,6 +16,7 @@ export default function FossilSchool({ onComplete }: { onComplete: (data: Traini
   const [mood, setMood] = useState<"idle" | "happy" | "scared">("idle");
   const [showConfetti, setShowConfetti] = useState(false);
   const [done, setDone] = useState(false);
+  const locked = useSpeakLock();
 
   useEffect(() => { speak(VOICE.q1Start); return () => { stopSpeaking(); }; }, []);
 
@@ -46,7 +48,7 @@ export default function FossilSchool({ onComplete }: { onComplete: (data: Traini
         <Confetti active={true} />
         <RexBuddy mood="celebrate" size={120} />
         <h2 className="text-3xl font-bold">🧠 Training Complete!</h2>
-        <button className="btn btn-success mt-4" onClick={() => { stopSpeaking(); sfxTap(); speak(VOICE.q1Learned); onComplete(training); }}>
+        <button className="btn btn-success mt-4" disabled={locked} onClick={() => { sfxTap(); speak(VOICE.q1Learned); onComplete(training); }}>
           See Results →
         </button>
       </div>
@@ -60,14 +62,14 @@ export default function FossilSchool({ onComplete }: { onComplete: (data: Traini
       <RexBuddy mood={mood} size={80} />
       <p className="opacity-70 text-center max-w-md text-sm">What type of dinosaur is this?</p>
       <div className="text-sm opacity-70">{idx + 1} / {items.length}</div>
-      <div className="progress-track w-64"><div className="progress-fill" style={{ width: `${(idx / items.length) * 100}%` }} /></div>
+      <div className="progress-track w-64"><div className="progress-fill" style={{ width: `${((idx + 1) / items.length) * 100}%` }} /></div>
       <div className="text-7xl my-2">{current.emoji}</div>
       <div className="text-xl font-semibold">{current.label}</div>
       <div className="text-lg min-h-[2em] font-semibold text-center">{feedback}</div>
       {!feedback && (
         <div className="flex flex-wrap gap-2 justify-center max-w-sm fade-in">
           {cats.map(([key, { emoji, label }]) => (
-            <button key={key} className="btn text-sm" onClick={() => { stopSpeaking(); sfxTap(); answer(key); }}>
+            <button key={key} className="btn text-sm" disabled={locked} onClick={() => { sfxTap(); answer(key); }}>
               {emoji} {label}
             </button>
           ))}

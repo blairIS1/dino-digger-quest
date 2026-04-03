@@ -4,6 +4,7 @@ import { RESCUE_EVENTS } from "./data";
 import RexBuddy from "./RexBuddy";
 import { sfxCorrect, sfxWrong, sfxTap, sfxCelebrate } from "./sfx";
 import { speak, stopSpeaking } from "./speak";
+import { useSpeakLock } from "./useSpeakLock";
 import { VOICE } from "./voice";
 import Confetti from "./Confetti";
 
@@ -18,6 +19,7 @@ export default function Excavation({ onComplete }: { onComplete: () => void }) {
   const [done, setDone] = useState(false);
   const [timer, setTimer] = useState(0);
   const [digDepth, setDigDepth] = useState(10);
+  const locked = useSpeakLock();
 
   useEffect(() => { speak(VOICE.q4Start); return () => { stopSpeaking(); }; }, []);
 
@@ -69,7 +71,7 @@ export default function Excavation({ onComplete }: { onComplete: () => void }) {
         <RexBuddy mood="celebrate" size={140} />
         <h2 className="text-3xl font-bold">Excavation Complete!</h2>
         <div className="flex gap-6 text-lg"><span>🦴 Found: {finds}/{totalFossils}</span><span>😅 Missed: {oops}</span></div>
-        <button className="btn btn-success mt-4" onClick={() => { stopSpeaking(); sfxTap(); sfxCelebrate(); speak(VOICE.q4Learned); onComplete(); }}>Final Quest →</button>
+        <button className="btn btn-success mt-4" disabled={locked} onClick={() => { sfxTap(); sfxCelebrate(); speak(VOICE.q4Learned); onComplete(); }}>Final Quest →</button>
       </div>
     );
   }
