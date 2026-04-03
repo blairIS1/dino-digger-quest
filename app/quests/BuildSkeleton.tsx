@@ -8,12 +8,12 @@ import { VOICE } from "./voice";
 import Confetti from "./Confetti";
 
 const STEPS = [
-  { label: "🦴 Sorting fossils!", desc: "Laying out the bones..." },
-  { label: "🦖 Building the skull", desc: "Connecting jaw and teeth..." },
-  { label: "🦕 Attaching the spine", desc: "Vertebrae clicking into place..." },
-  { label: "🦅 Adding the ribs", desc: "Rib cage taking shape..." },
-  { label: "🛡️ Mounting the legs", desc: "Standing tall..." },
-  { label: "🏆 Skeleton complete!", desc: "What a magnificent dinosaur!" },
+  { label: "🦴 Sorting fossils!", desc: "Laying out the bones...", voice: VOICE.q5Step1 },
+  { label: "🦖 Building the skull", desc: "Connecting jaw and teeth...", voice: VOICE.q5Step2 },
+  { label: "🦕 Attaching the spine", desc: "Vertebrae clicking into place...", voice: VOICE.q5Step3 },
+  { label: "🦅 Adding the ribs", desc: "Rib cage taking shape...", voice: VOICE.q5Step4 },
+  { label: "🛡️ Mounting the legs", desc: "Standing tall...", voice: VOICE.q5Step5 },
+  { label: "🏆 Skeleton complete!", desc: "What a magnificent dinosaur!", voice: VOICE.q5Step6 },
 ];
 
 export default function BuildSkeleton({ training, onComplete }: { training: TrainingData; onComplete: () => void }) {
@@ -25,10 +25,11 @@ export default function BuildSkeleton({ training, onComplete }: { training: Trai
 
   useEffect(() => {
     if (!auto || done) return;
+    const next = step + 1;
     const t = setTimeout(() => {
       sfxCorrect();
-      if (step + 1 >= STEPS.length) { setDone(true); sfxCelebrate(); speak(VOICE.q5Done); }
-      else setStep((s) => s + 1);
+      if (next >= STEPS.length) { setDone(true); sfxCelebrate(); speak(VOICE.q5Done); }
+      else { setStep(next); speak(STEPS[next].voice); }
     }, 3000);
     return () => clearTimeout(t);
   }, [auto, step, done]);
@@ -66,7 +67,7 @@ export default function BuildSkeleton({ training, onComplete }: { training: Trai
         {STEPS.slice(0, step + 1).map((s, i) => <div key={i}>✅ {s.label}</div>)}
       </div>
       {!auto ? (
-        <button className="btn btn-primary text-xl mt-4" onClick={() => { stopSpeaking(); sfxTap(); setAuto(true); speak(VOICE.q5Launch); }}>🦴 Start Building!</button>
+        <button className="btn btn-primary text-xl mt-4" onClick={() => { stopSpeaking(); sfxTap(); setAuto(true); speak(VOICE.q5Launch).then(() => speak(STEPS[0].voice)); }}>🦴 Start Building!</button>
       ) : (
         <div className="text-sm opacity-50 mt-4">🤖 Rex is assembling...</div>
       )}

@@ -64,6 +64,12 @@
 
   "q5_start": "Final mission! Let's assemble the dinosaur skeleton from all the fossils we found!",
   "q5_launch": "Starting the reconstruction!",
+  "q5_step1": "Sorting the fossils! Laying out all the bones we found!",
+  "q5_step2": "Building the skull! Connecting the jaw and teeth!",
+  "q5_step3": "Attaching the spine! The vertebrae are clicking into place!",
+  "q5_step4": "Adding the ribs! The rib cage is taking shape!",
+  "q5_step5": "Mounting the legs! The dinosaur is standing tall!",
+  "q5_step6": "Skeleton complete! What a magnificent dinosaur!",
   "q5_done": "You did it! The skeleton is complete! What a discovery!",
   "q5_learned": "You learned that AI helps scientists reconstruct the past from data!",
 
