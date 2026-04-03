@@ -1,0 +1,71 @@
+{
+  "welcome": "Hi! I'm Rex the excavation robot! I just arrived at the dig site, but I don't know anything about dinosaurs yet. Can you teach me?",
+  "menu_title": "Dino Digger Quest!",
+  "menu_subtitle": "Collect all your dig tools and discover dinosaurs!",
+  "menu_parts": "tools collected",
+  "menu_mission_complete": "Amazing! You built a complete dinosaur skeleton!",
+
+  "quest_fossil": "Fossil School",
+  "quest_test": "Dig Site Quiz",
+  "quest_excavation": "Excavation",
+
+  "part_brush": "Brush",
+  "part_hammer": "Hammer",
+  "part_map": "Dig Map",
+  "part_bone": "Fossil",
+  "part_trophy": "Trophy",
+
+  "q1_start": "First, let's learn about dinosaur types! Every dinosaur belongs to a group. Help me figure out which one!",
+  "q1_title": "Quest 1: Fossil School!",
+  "q1_instruction": "Is this dinosaur a carnivore, herbivore, flying reptile, marine reptile, or armored dino? Tap to label each one!",
+  "q1_done": "Awesome! You taught me about dinosaur types! Let's see how well I learned.",
+  "q1_learned": "You learned that AI needs labeled examples to classify things, just like sorting fossils into groups!",
+
+  "t_carni_trex_y": "Yes! T-Rex was a fierce carnivore with tiny arms and huge teeth!",
+  "t_carni_trex_n": "Actually, T-Rex was a carnivore! Look at those giant teeth!",
+  "t_carni_veloci_y": "Right! Velociraptor was a fast, clever carnivore!",
+  "t_carni_veloci_n": "Oops! Velociraptor was a carnivore, a speedy hunter!",
+  "t_herbi_trice_y": "Correct! Triceratops was a herbivore with three horns!",
+  "t_herbi_trice_n": "Actually, Triceratops was a herbivore! It ate plants, not meat!",
+  "t_herbi_brachio_y": "Yes! Brachiosaurus was a gentle giant herbivore!",
+  "t_herbi_brachio_n": "Oops! Brachiosaurus was a herbivore with a super long neck for reaching treetops!",
+  "t_flying_ptera_y": "Right! Pteranodon was a flying reptile that soared through the sky!",
+  "t_flying_ptera_n": "Actually, Pteranodon was a flying reptile! It had huge wings!",
+  "t_flying_quetz_y": "Correct! Quetzalcoatlus was the biggest flying reptile ever!",
+  "t_flying_quetz_n": "Oops! Quetzalcoatlus was a flying reptile, as tall as a giraffe!",
+  "t_marine_mosa_y": "Yes! Mosasaurus was a marine reptile that ruled the ancient seas!",
+  "t_marine_mosa_n": "Actually, Mosasaurus was a marine reptile! It lived in the ocean!",
+  "t_marine_plesio_y": "Right! Plesiosaur was a marine reptile with a very long neck!",
+  "t_marine_plesio_n": "Oops! Plesiosaur was a marine reptile that swam in ancient oceans!",
+  "t_armored_ankylo_y": "Correct! Ankylosaurus was an armored dino with a club tail!",
+  "t_armored_ankylo_n": "Actually, Ankylosaurus was an armored dino! It was like a living tank!",
+  "t_armored_stego_y": "Yes! Stegosaurus was an armored dino with plates on its back!",
+  "t_armored_stego_n": "Oops! Stegosaurus was an armored dino with cool back plates!",
+
+  "correct": "Great job! You got it right!",
+  "wrong": "Oops! Let's try again!",
+
+  "summary": "Let's look at what I learned from your fossil labels!",
+  "summary_bias": "Hmm, most of your data is about one type. I might not recognize the others very well!",
+  "summary_learned": "You learned that AI can be biased if it doesn't get enough examples of everything!",
+
+  "q3_start": "Now let's test me! I'll try to classify fossils using what you taught me. Watch carefully!",
+  "q3_done": "I did pretty well! Your training data really helped!",
+  "q3_retrain": "I need more training. Let's go back and teach me more!",
+  "q3_learned": "You learned that testing AI is important. If it makes mistakes, we need more data!",
+
+  "q4_start": "Time to excavate! I'll scan the dig site for fossils, but sometimes I see things that are just rocks. You decide what to dig up!",
+  "q4_save": "Great find! That's a real fossil!",
+  "q4_crash": "Oh no! We missed that fossil!",
+  "q4_ai_right": "I spotted that one correctly!",
+  "q4_false_alarm": "That was just a rock! I got confused!",
+  "q4_done": "Dig complete! We found some amazing fossils together!",
+  "q4_learned": "You learned that humans and AI work best as a team! AI scans fast, but humans make the final call!",
+
+  "q5_start": "Final mission! Let's assemble the dinosaur skeleton from all the fossils we found!",
+  "q5_launch": "Starting the reconstruction!",
+  "q5_done": "You did it! The skeleton is complete! What a discovery!",
+  "q5_learned": "You learned that AI helps scientists reconstruct the past from data!",
+
+  "all_done": "Congratulations! You completed the Dino Digger Quest! You're a real paleontologist!"
+}
