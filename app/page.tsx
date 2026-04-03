@@ -9,7 +9,7 @@ import BuildSkeleton from "./quests/BuildSkeleton";
 import RexBuddy from "./quests/RexBuddy";
 import Confetti from "./quests/Confetti";
 import SessionTimer, { useSessionTimer } from "./quests/SessionTimer";
-import SpeakingIndicator from "./quests/SpeakingIndicator";
+import { useSpeaking } from "./quests/SpeakingIndicator";
 import { sfxTap, sfxCelebrate } from "./quests/sfx";
 import { startMusic, stopMusic } from "./quests/music";
 import { recordCompletion, getCompletions } from "./quests/scores";
@@ -57,6 +57,7 @@ export default function Home() {
 
   useEffect(() => { setCompletions(getCompletions()); }, []);
   const markDone = (i: number) => setCompleted((p) => { const n = [...p]; n[i] = true; return n; });
+  const talking = useSpeaking();
 
   if (expired) { stopMusic(); return <SessionTimer onDismiss={dismiss} />; }
 
@@ -65,8 +66,7 @@ export default function Home() {
   if (nodeId === "start") {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen gap-8 p-4 sm:p-8 fade-in">
-        <SpeakingIndicator />
-        <RexBuddy mood="idle" size={160} />
+        <RexBuddy mood="idle" size={160} talking={talking} />
         <h1 className="text-3xl sm:text-5xl font-bold text-center">🦕 Dino Digger Quest</h1>
         <p className="text-base sm:text-xl text-center opacity-80 max-w-2xl px-4">Help Rex the robot discover dinosaurs and learn how AI classifies fossils!</p>
         <button className="btn btn-primary text-xl sm:text-2xl px-8 py-4" onClick={() => { sfxTap(); startMusic("adventure"); send("BEGIN"); }}>🎮 Start Digging!</button>
@@ -78,9 +78,8 @@ export default function Home() {
   if (nodeId === "menu") {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen gap-6 p-4 sm:p-8 fade-in">
-        <SpeakingIndicator />
         <Confetti active={completed.every(Boolean)} />
-        <RexBuddy mood={completed.every(Boolean) ? "celebrate" : "idle"} size={140} />
+        <RexBuddy mood={completed.every(Boolean) ? "celebrate" : "idle"} size={140} talking={talking} />
         <h1 className="text-3xl sm:text-4xl font-bold text-center">Dino Digger Quest!</h1>
         <p className="text-base sm:text-lg text-center opacity-70 max-w-md px-4">Collect all dig tools and build a dinosaur!</p>
         <div className="flex gap-2 sm:gap-3 flex-wrap justify-center">
